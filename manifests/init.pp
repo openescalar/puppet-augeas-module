@@ -1,8 +1,3 @@
-puppet-augeas-module
-====================
-
-Puppet Augeas module which allows you to control files by using augeas
-
 # Copyright 2014 Miguel Zuniga ( miguel-zuniga at hotmail.com )
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,3 +11,17 @@ Puppet Augeas module which allows you to control files by using augeas
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+class augeas {
+  $path = '/usr/share/augeas/lenses/dist'
+  file {$path:
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+  # Custom lenses start here
+  lense {'nsswitch.aug': path => $path}
+  lense {'sshkeys.aug': path => $path}
+}

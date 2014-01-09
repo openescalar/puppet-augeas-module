@@ -1,8 +1,3 @@
-puppet-augeas-module
-====================
-
-Puppet Augeas module which allows you to control files by using augeas
-
 # Copyright 2014 Miguel Zuniga ( miguel-zuniga at hotmail.com )
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,3 +11,20 @@ Puppet Augeas module which allows you to control files by using augeas
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+define augeas::lense($path) {
+  file { "${path}/${name}":
+    ensure => 'file',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => "puppet:///modules/augeas/${name}",
+  }
+  file { "${path}/tests/test_${name}":
+    ensure => 'file',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => "puppet:///modules/augeas/tests/test_${name}",
+  }
+}
